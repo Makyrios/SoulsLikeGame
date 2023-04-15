@@ -1,0 +1,170 @@
+Begin Object Class=/Script/Engine.Material Name="CharM_Gruntling_Guardian"
+   Begin Object Class=/Script/Engine.MaterialExpressionConstant3Vector Name="MaterialExpressionConstant3Vector_5"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_30"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_31"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_32"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_33"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_34"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_16"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_17"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_18"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_12"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_21"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_22"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_23"
+   End Object
+   Begin Object Class=/Script/UnrealEd.SceneThumbnailInfoWithPrimitive Name="SceneThumbnailInfoWithPrimitive_5"
+   End Object
+   Begin Object Name="MaterialExpressionConstant3Vector_5"
+      Constant=(R=0.510000,G=0.099011,B=0.005899,A=0.000000)
+      MaterialExpressionEditorX=-672
+      MaterialExpressionEditorY=784
+      MaterialExpressionGuid=17F8E02B49310D12CED6609C00CDF46D
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_30"
+      A=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_21"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      B=(Expression=MaterialExpressionMultiply'"CharM_Gruntling_Guardian:MaterialExpressionMultiply_17"')
+      Alpha=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_22"',OutputIndex=2,Mask=1,MaskG=1)
+      MaterialExpressionEditorX=-864
+      MaterialExpressionEditorY=-160
+      MaterialExpressionGuid=D8C4759046C11680A7F65D8AB52C0D7F
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_31"
+      Alpha=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_22"',OutputIndex=2,Mask=1,MaskG=1)
+      ConstB=0.800000
+      MaterialExpressionEditorX=-624
+      MaterialExpressionEditorY=64
+      MaterialExpressionGuid=2FBC54944AC2C28A244D7687658AF9BB
+      Material=Material'"CharM_Gruntling_Guardian"'
+      bCollapsed=False
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_32"
+      A=(Expression=MaterialExpressionLinearInterpolate'"CharM_Gruntling_Guardian:MaterialExpressionLinearInterpolate_33"')
+      Alpha=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_22"',OutputIndex=2,Mask=1,MaskG=1)
+      ConstA=1.000000
+      ConstB=0.400000
+      MaterialExpressionEditorX=-464
+      MaterialExpressionEditorY=368
+      MaterialExpressionGuid=2D9ACEA64E264D15793B1988FF2505B9
+      Material=Material'"CharM_Gruntling_Guardian"'
+      bCollapsed=False
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_33"
+      A=(Expression=MaterialExpressionLinearInterpolate'"CharM_Gruntling_Guardian:MaterialExpressionLinearInterpolate_34"')
+      Alpha=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_22"',OutputIndex=3,Mask=1,MaskB=1)
+      ConstA=1.000000
+      ConstB=0.950000
+      MaterialExpressionEditorX=-736
+      MaterialExpressionEditorY=288
+      MaterialExpressionGuid=FDF5FAF6455BC74ABEDE30A8059EF1D1
+      Material=Material'"CharM_Gruntling_Guardian"'
+      bCollapsed=False
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_34"
+      Alpha=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_22"',OutputIndex=1,Mask=1,MaskR=1)
+      ConstA=1.000000
+      ConstB=0.800000
+      MaterialExpressionEditorX=-992
+      MaterialExpressionEditorY=96
+      MaterialExpressionGuid=7470F47B4EDA5C58A7676E8E13EC9878
+      Material=Material'"CharM_Gruntling_Guardian"'
+      bCollapsed=False
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_16"
+      A=(Expression=MaterialExpressionMultiply'"CharM_Gruntling_Guardian:MaterialExpressionMultiply_18"')
+      B=(Expression=MaterialExpressionConstant3Vector'"CharM_Gruntling_Guardian:MaterialExpressionConstant3Vector_5"')
+      MaterialExpressionEditorX=-432
+      MaterialExpressionEditorY=608
+      MaterialExpressionGuid=6E711331470E9017A1A40283302F6D9F
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_17"
+      B=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_21"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      ConstA=3.250000
+      MaterialExpressionEditorX=-1136
+      MaterialExpressionEditorY=-112
+      MaterialExpressionGuid=1BCD6EDA4A3CCE33472BBEA7DF2181D5
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_18"
+      B=(Expression=MaterialExpressionTextureSample'"CharM_Gruntling_Guardian:MaterialExpressionTextureSample_23"',OutputIndex=1,Mask=1,MaskR=1)
+      ConstA=10.000000
+      MaterialExpressionEditorX=-592
+      MaterialExpressionEditorY=608
+      MaterialExpressionGuid=E9BFE531448C9174E0AA79943CEC0468
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_12"
+      Texture=Texture2D'"/Game/InfinityBladeAdversaries/Enemy/Enemy_Gruntling_Guardian/Textures/T_Gruntling_Guardian_N.T_Gruntling_Guardian_N"'
+      SamplerType=SAMPLERTYPE_Normal
+      MaterialExpressionEditorX=-128
+      MaterialExpressionEditorY=464
+      MaterialExpressionGuid=6AF4750D413950B712B4A9A3BE1C1F64
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_21"
+      Texture=Texture2D'"/Game/InfinityBladeAdversaries/Enemy/Enemy_Gruntling_Guardian/Textures/T_Gruntling_Guardian_D.T_Gruntling_Guardian_D"'
+      MaterialExpressionEditorX=-1424
+      MaterialExpressionEditorY=-176
+      MaterialExpressionGuid=CE4369D24E57AE1A97B04EBB735689F2
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_22"
+      Texture=Texture2D'"/Game/InfinityBladeAdversaries/Enemy/Enemy_Gruntling_Guardian/Textures/T_Gruntling_Guardian_M.T_Gruntling_Guardian_M"'
+      MaterialExpressionEditorX=-1360
+      MaterialExpressionEditorY=336
+      MaterialExpressionGuid=5615CA4E4FF47653DB4B43ABE047B2CB
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_23"
+      Texture=Texture2D'"/Game/InfinityBladeAdversaries/Enemy/Enemy_Gruntling_Guardian/Textures/T_Gruntling_Guardian_E.T_Gruntling_Guardian_E"'
+      MaterialExpressionEditorX=-768
+      MaterialExpressionEditorY=608
+      MaterialExpressionGuid=A7D5250846BF7F7423A6588D26233622
+      Material=Material'"CharM_Gruntling_Guardian"'
+   End Object
+   Begin Object Name="SceneThumbnailInfoWithPrimitive_5"
+   End Object
+   BaseColor=(Expression=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_30"')
+   Metallic=(Expression=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_31"')
+   Roughness=(Expression=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_32"')
+   Normal=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_12"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   EmissiveColor=(Expression=MaterialExpressionMultiply'"MaterialExpressionMultiply_16"')
+   bUsedWithSkeletalMesh=True
+   Expressions(0)=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_30"'
+   Expressions(1)=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_31"'
+   Expressions(2)=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_32"'
+   Expressions(3)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_12"'
+   Expressions(4)=MaterialExpressionMultiply'"MaterialExpressionMultiply_16"'
+   Expressions(5)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_21"'
+   Expressions(6)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_22"'
+   Expressions(7)=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_33"'
+   Expressions(8)=MaterialExpressionLinearInterpolate'"MaterialExpressionLinearInterpolate_34"'
+   Expressions(9)=MaterialExpressionMultiply'"MaterialExpressionMultiply_17"'
+   Expressions(10)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_23"'
+   Expressions(11)=MaterialExpressionMultiply'"MaterialExpressionMultiply_18"'
+   Expressions(12)=MaterialExpressionConstant3Vector'"MaterialExpressionConstant3Vector_5"'
+   bCanMaskedBeAssumedOpaque=True
+   StateId=7805210F4874CBBC3A5BCB9068535912
+   ReferencedTextureGuids(0)=E31847A241DF9169A8BDB4B55290BDA6
+   ReferencedTextureGuids(1)=CC0E0118408C3A1EFD47FBAC09C370CA
+   ReferencedTextureGuids(2)=28BD392E4C9E75A7E5AACDBFADB30302
+   ReferencedTextureGuids(3)=3BD09BD84BF4B3F4D7E324B9E1EEF2E5
+   PreviewMesh="/Game/Enemy/Enemy_Gruntling_Guardian/SK_Gruntling_Guardian.SK_Gruntling_Guardian"
+   ThumbnailInfo=SceneThumbnailInfoWithPrimitive'"SceneThumbnailInfoWithPrimitive_5"'
+   LightingGuid=1C485580424EF95C601000A4C86EEA8C
+End Object
