@@ -464,7 +464,7 @@ void AMeleeCombatSystemCharacter::CheckDeath(EStats Type, float Value)
 
 void AMeleeCombatSystemCharacter::ApplyHitReaction(EDamageType DamageType)
 {
-	if (WasHitBlocked())
+	if (WasHitBlocked() && DamageType != EDamageType::KnockDownDamage)
 	{
 		PerformBlock();
 		return;
