@@ -118,7 +118,14 @@ void AMasterAI::BeginPlay()
 		StatsComponent->InitializeStats();
 	}
 
-	PerformSpawn();
+	if (bSpawnImmediately)
+	{
+		PerformSpawn();
+	}
+	else
+	{
+		ToggleActor(false);
+	}
 }
 
 void AMasterAI::SetMovementSpeedMode(EMovementSpeedMode NewMode)
@@ -382,6 +389,34 @@ void AMasterAI::UpdateRotationToTarget(float Value)
 	SetActorRotation(InterpRotation);
 }
 
+void AMasterAI::ToggleActor(bool bEnable)
+{
+	if (bEnable)
+	{
+		SetActorHiddenInGame(false);
+		SetActorEnableCollision(true);
+		SetActorTickEnabled(true);
+		if (auto MainWeapon = CombatComponent->GetMainWeapon())
+		{
+			MainWeapon->SetActorHiddenInGame(false);
+			MainWeapon->SetActorTickEnabled(true);
+		}
+		Cast<AAIController>(Controller)->GetBrainComponent()->StartLogic();
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+		SetActorEnableCollision(false);
+		SetActorTickEnabled(false);
+		if (auto MainWeapon = CombatComponent->GetMainWeapon())
+		{
+			MainWeapon->SetActorHiddenInGame(true);
+			MainWeapon->SetActorTickEnabled(false);
+		}
+		Cast<AAIController>(Controller)->GetBrainComponent()->StopLogic("Disabled actor");
+	}
+}
+
 bool AMasterAI::CanBeTargeted()
 {
 	FGameplayTagContainer IsDead(FGameplayTag::RequestGameplayTag(FName("Character.State.Dead")));
@@ -487,6 +522,10 @@ void AMasterAI::ApplyHitReactionPhysics(float InitialSpeed)
 
 void AMasterAI::PerformSpawn(bool bRandomIndex)
 {
+	if (!bSpawnImmediately)
+	{
+		ToggleActor(true);
+	}
 	if (SpawnMontages.Num() > 0)
 	{
 		if (bRandomIndex)

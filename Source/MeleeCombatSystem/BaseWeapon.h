@@ -122,6 +122,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Stats")
 	TMap<FGameplayTag, float> ActionDamageMultiplier;
 
+	UPROPERTY(EditAnywhere, Category = "Initialization")
+	TArray<UStaticMeshComponent*> WeaponMeshes;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Initialization")
 	TSubclassOf<UDamageType> DamageTypeClass;
 

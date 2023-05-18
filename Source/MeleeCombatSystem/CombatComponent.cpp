@@ -131,11 +131,6 @@ float UCombatComponent::PerformAttack(FGameplayTag AttackType, int AttackIndex, 
 		AttackCount = 0;
 	}
 
-	/*if (OwnerStatsComponent != nullptr)
-	{
-		OwnerStatsComponent->ModifyCurrentStatValue(EStats::Stamina, -MainWeapon->GetActionStatCost());
-	}*/
-
 	UE_LOG(LogTemp, Warning, TEXT("Perform attack"));
 	return OwnerStateControl->PerformAction(AttackType,
 		FGameplayTag::RequestGameplayTag(FName("Character.State.Attacking")), false, FinalIndex);

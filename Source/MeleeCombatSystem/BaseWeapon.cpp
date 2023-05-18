@@ -34,6 +34,11 @@ void ABaseWeapon::BeginPlay()
 	{
 		MainWeaponCollisionComponent->AddActorToIgnore(GetOwner());
 	}
+
+	if (WeaponMeshes.Num() > 0)
+	{
+		ItemStaticMesh = WeaponMeshes[FMath::RandRange(0, WeaponMeshes.Num() - 1)];
+	}
 }
 
 void ABaseWeapon::SimulateWeaponPhysics()

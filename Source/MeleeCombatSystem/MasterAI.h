@@ -87,6 +87,7 @@ public:
 
 	void ApplyHitReactionPhysics(float InitialSpeed);
 
+	UFUNCTION(BlueprintCallable)
 	void PerformSpawn(bool bRandomIndex = true);
 
 	void Die(bool bRandomIndex = true);
@@ -190,6 +191,9 @@ private:
 	bool bHitFront;
 	bool bIFramesEnabled;
 
+	UPROPERTY(EditAnywhere, Category = "Initialization")
+	bool bSpawnImmediately = true;
+
 	UPROPERTY(EditAnywhere, Category = "Physics")
 		float HitReactionInitialSpeed = 2000;
 
@@ -246,4 +250,6 @@ private:
 
 	UFUNCTION()
 	void UpdateRotationToTarget(float Value);
+
+	void ToggleActor(bool bHide);
 };
