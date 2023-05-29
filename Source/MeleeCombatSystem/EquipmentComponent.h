@@ -37,13 +37,20 @@ public:
 
 	void UnequipItem(ABaseEquippable* ItemToUnequip);
 
+
+	/// <summary>
+	/// Check if two objects have same common base custom(not including UE classes) class
+	/// </summary>
+	/// <param name="Object1">First object to check</param>
+	/// <param name="Object2">Second object to check</param>
+	/// <returns>True if two objects have same base class, false if otherwise</returns>
+	static bool CheckIfRelatedByParent(UClass* Object1, UClass* Object2);
+
+public:
 	UPROPERTY(EditAnywhere, Category = "Initialization")
 	TArray<TSubclassOf<ABaseEquippable>> StartingEquipment;
-
 
 private:
 	TArray<ABaseEquippable*> EquippedItems;
 
-
-	bool CheckIfRelatedByParent(UClass* Object1, UClass* Object2) const;
 };

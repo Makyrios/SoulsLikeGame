@@ -23,6 +23,7 @@
 #include "Components/TimelineComponent.h"
 #include "CombatPlayerController.h"
 #include "EquipmentComponent.h"
+#include "InventoryComponent.h"
 #include "SwordAndShield.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -69,6 +70,7 @@ AMeleeCombatSystemCharacter::AMeleeCombatSystemCharacter()
 	StatsComponent = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats Component"));
 	TargetingComponent = CreateDefaultSubobject<UTargetingComponent>(TEXT("Targeting Component"));
 	EquipmentComponent = CreateDefaultSubobject<UEquipmentComponent>(TEXT("Equipment Component"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory Component");
 	AIPerceptionSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AI Perception Source");
 	AttackTimeline = CreateDefaultSubobject<UTimelineComponent>("Attack Timeline Component");
 
@@ -120,8 +122,8 @@ void AMeleeCombatSystemCharacter::BeginPlay()
 
 	
 	EquipmentComponent->InitializeEquipment();
+	InventoryComponent->InitializeWeapons();
 	StatsComponent->InitializeStats();
-	
 }
 
 void AMeleeCombatSystemCharacter::SetMovementSpeedMode(EMovementSpeedMode NewMode)
@@ -151,7 +153,7 @@ bool AMeleeCombatSystemCharacter::CanReceiveHitReaction() const
 	FGameplayTagContainer States;
 	States.AddTag(FGameplayTag::RequestGameplayTag(FName("Character.State.Dead")));
 
-	if (HitReactionFrontMontage != nullptr && !StateManager->IsCurrentStateEqualToAny(States))
+	if (HitReactionFrontMontage != nullptr && !StateManager->IsCurrentStateEqualToAny(States) && !bHFramesEnabled)
 	{
 		return true;
 	}
@@ -341,6 +343,9 @@ void AMeleeCombatSystemCharacter::SetupPlayerInputComponent(class UInputComponen
 
 		//Use item
 		EnhancedInputComponent->BindAction(UseItemAction, ETriggerEvent::Started, this, &AMeleeCombatSystemCharacter::PerformItemAction);
+
+		//Change weapon
+		EnhancedInputComponent->BindAction(ChangeWeaponAction, ETriggerEvent::Started, this, &AMeleeCombatSystemCharacter::ChangeWeapon);
 
 		PlayerInputComponent->BindAction(TEXT("Die"), IE_Pressed, this, &AMeleeCombatSystemCharacter::RegenStamina);
 	}
@@ -600,6 +605,11 @@ void AMeleeCombatSystemCharacter::PerformItemAction()
 	}
 }
 
+void AMeleeCombatSystemCharacter::ChangeWeapon()
+{
+	InventoryComponent->ChangeWeapon();
+}
+
 
 bool AMeleeCombatSystemCharacter::CanPerformDodge() const
 {
@@ -839,6 +849,11 @@ bool AMeleeCombatSystemCharacter::CanPerformAnimation() const
 void AMeleeCombatSystemCharacter::SetInvincibleFrames(bool bEnableIFrames)
 {
 	bIFramesEnabled = bEnableIFrames;
+}
+
+void AMeleeCombatSystemCharacter::SetHyperarmorFrames(bool bEnableHFrames)
+{
+	bHFramesEnabled = bEnableHFrames;
 }
 
 //bool AMeleeCombatSystemCharacter::UseItemByTag(FGameplayTag ItemTag)
@@ -1216,7 +1231,7 @@ void AMeleeCombatSystemCharacter::SwitchOnEndStates(FGameplayTag State)
 	}
 }
 
-void AMeleeCombatSystemCharacter::SwitchOnActions(FGameplayTag Action)
+void AMeleeCombatSystemCharacter::SwitchOnBeginAction(FGameplayTag Action)
 {
 	if (Action.GetTagName() == "Character.Action.Attack.LightAttack")
 	{

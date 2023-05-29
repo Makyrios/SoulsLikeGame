@@ -22,6 +22,7 @@ class UStatsComponent;
 class UTargetingComponent;
 class UAIPerceptionStimuliSourceComponent;
 class UEquipmentComponent;
+class UInventoryComponent;
 
 UCLASS(config = Game)
 class AMeleeCombatSystemCharacter : public ACharacter, public ICombat, public IStateControl, public IGameplayTagAssetInterface
@@ -96,6 +97,10 @@ class AMeleeCombatSystemCharacter : public ACharacter, public ICombat, public IS
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		class UInputAction* UseItemAction;
 
+	/** Use Change Weapon Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		class UInputAction* ChangeWeaponAction;
+
 public:
 	AMeleeCombatSystemCharacter();
 
@@ -109,6 +114,7 @@ public:
 	virtual bool CanReceiveDamage() const override;
 	virtual bool CanPerformAnimation() const override;
 	virtual void SetInvincibleFrames(bool bEnableIFrames) override;
+	virtual void SetHyperarmorFrames(bool bEnableHFrames) override;
 	/*virtual bool UseItemByTag(FGameplayTag ItemTag) override;
 	virtual ABaseEquippable* GetItemByTag(FGameplayTag ItemTag) override;*/
 	virtual void UpdateHealthPotionAmount(int Amount) override;
@@ -191,6 +197,9 @@ protected:
 	/** Called for use item input */
 	void PerformItemAction();
 
+	/** Called for change weapon input */
+	void ChangeWeapon();
+
 
 protected:
 	// APawn interface
@@ -237,10 +246,12 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-	/** Returns MainWeapon object */
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UCombatComponent* GetCombatComponent() const { return CombatComponent; }
+	FORCEINLINE UEquipmentComponent* GetEquipmentComponent() const { return EquipmentComponent; }
+	FORCEINLINE UInventoryComponent* GetInventoryComponent() const { return InventoryComponent; }
+
 
 	virtual EMovementSpeedMode GetMovementSpeedMode() const override { return MovementSpeedMode; }
 	void SetMovementSpeedMode(EMovementSpeedMode NewMode);
@@ -260,6 +271,8 @@ protected:
 	UTargetingComponent* TargetingComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
 	UEquipmentComponent* EquipmentComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	UInventoryComponent* InventoryComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
 	UAIPerceptionStimuliSourceComponent* AIPerceptionSourceComponent;
 
@@ -287,6 +300,7 @@ private:
 	bool bHitFront;
 	bool bIFramesEnabled;
 	bool bIsBlockPressed;
+	bool bHFramesEnabled;
 
 	UPROPERTY(EditAnywhere, Category = "Physics")
 	float HitReactionInitialSpeed = 2000;
@@ -328,7 +342,7 @@ private:
 	void SwitchOnBeginStates(FGameplayTag State);
 	void SwitchOnEndStates(FGameplayTag State);
 
-	void SwitchOnActions(FGameplayTag Action);
+	void SwitchOnBeginAction(FGameplayTag Action);
 	
 	void RotateToTarget();
 	void StopRotatingToTarget();

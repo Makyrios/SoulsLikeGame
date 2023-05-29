@@ -41,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void SetInvincibleFrames(bool bEnableIFrames) = 0;
 
+	UFUNCTION(BlueprintCallable)
+	virtual void SetHyperarmorFrames(bool bEnableHFrames) = 0;
+
 	/*UFUNCTION(BlueprintCallable)
 	virtual bool UseItemByTag(FGameplayTag ItemTag) = 0;
 

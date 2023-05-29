@@ -8,7 +8,7 @@
 
 ARegularEnemy::ARegularEnemy()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	// Health Bar Widget
 	HealthBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Health Bar Widget Component"));
@@ -29,11 +29,16 @@ void ARegularEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UUserWidget* Widget = CreateWidget<UHealthBarUserWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarUserWidget, FName("HealthBarWidget"));
+	UUserWidget* Widget = CreateWidget<UHealthBarUserWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarUserWidget);
+	UE_LOG(LogTemp, Display, TEXT("Create widget: %d"), Widget);
 	HealthBarWidgetComponent->SetWidget(Widget);
 	if (UHealthBarUserWidget* Health = Cast<UHealthBarUserWidget>(Widget))
 	{
 		Health->InitializeWidget(StatsComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Health widget cast fail"));
 	}
 
 	HealthBarWidgetComponent->SetVisibility(false);

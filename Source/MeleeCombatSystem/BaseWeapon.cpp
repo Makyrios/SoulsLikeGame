@@ -37,7 +37,7 @@ void ABaseWeapon::BeginPlay()
 
 	if (WeaponMeshes.Num() > 0)
 	{
-		ItemStaticMesh = WeaponMeshes[FMath::RandRange(0, WeaponMeshes.Num() - 1)];
+		ItemStaticMesh->SetStaticMesh(WeaponMeshes[FMath::RandRange(0, WeaponMeshes.Num() - 1)]);
 	}
 }
 

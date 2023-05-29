@@ -54,6 +54,7 @@ public:
 	virtual void ResetCombat() override;
 	virtual bool CanReceiveDamage() const override;
 	virtual void SetInvincibleFrames(bool bEnableIFrames) override;
+	virtual void SetHyperarmorFrames(bool bEnableHFrames) override;
 	/*virtual bool UseItemByTag(FGameplayTag ItemTag) override;
 	virtual ABaseEquippable* GetItemByTag(FGameplayTag ItemTag) override;*/
 	virtual void UpdateHealthPotionAmount(int Amount) override;
@@ -176,6 +177,12 @@ protected:
 
 	FOnTimelineFloat AttackUpdateFunction;
 
+
+	virtual void SwitchOnBeginStates(FGameplayTag State);
+	virtual void SwitchOnEndStates(FGameplayTag State);
+
+	virtual void SwitchOnBeginAction(FGameplayTag Action);
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UCurveFloat* AttackTimelineFloatCurve;
@@ -190,6 +197,7 @@ private:
 	bool bIsSprintAttack;
 	bool bHitFront;
 	bool bIFramesEnabled;
+	bool bHFramesEnabled;
 
 	UPROPERTY(EditAnywhere, Category = "Initialization")
 	bool bSpawnImmediately = true;
@@ -239,11 +247,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "HUD")
 		class UWidgetComponent* LockOnWidgetComponent;
 
-
-	void SwitchOnBeginStates(FGameplayTag State);
-	void SwitchOnEndStates(FGameplayTag State);
-
-	void SwitchOnActions(FGameplayTag Action);
 
 	void RotateToTarget();
 	void StopRotatingToTarget();

@@ -123,7 +123,7 @@ private:
 	TMap<FGameplayTag, float> ActionDamageMultiplier;
 
 	UPROPERTY(EditAnywhere, Category = "Initialization")
-	TArray<UStaticMeshComponent*> WeaponMeshes;
+	TArray<UStaticMesh*> WeaponMeshes;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Initialization")
 	TSubclassOf<UDamageType> DamageTypeClass;

@@ -93,7 +93,7 @@ void AMasterAI::BeginPlay()
 	{
 		StateManager->OnStateBeginEvent.AddUObject(this, &AMasterAI::SwitchOnBeginStates);
 		StateManager->OnStateEndEvent.AddUObject(this, &AMasterAI::SwitchOnEndStates);
-		//StateManager->OnActionBeginEvent.AddUObject(this, &AMasterAI::SwitchOnActions);
+		StateManager->OnActionBeginEvent.AddUObject(this, &AMasterAI::SwitchOnBeginAction);
 	}
 	if (StatsComponent != nullptr)
 	{
@@ -118,6 +118,7 @@ void AMasterAI::BeginPlay()
 		StatsComponent->InitializeStats();
 	}
 
+	// Spawn immediately or remain invisible and inactive
 	if (bSpawnImmediately)
 	{
 		PerformSpawn();
@@ -156,7 +157,7 @@ bool AMasterAI::CanReceiveHitReaction() const
 	FGameplayTagContainer States;
 	States.AddTag(FGameplayTag::RequestGameplayTag(FName("Character.State.Dead")));
 
-	if (HitReactionFrontMontage != nullptr && !StateManager->IsCurrentStateEqualToAny(States))
+	if (HitReactionFrontMontage != nullptr && !StateManager->IsCurrentStateEqualToAny(States) && !bHFramesEnabled)
 	{
 		return true;
 	}
@@ -613,6 +614,11 @@ void AMasterAI::SetInvincibleFrames(bool bEnableIFrames)
 	bIFramesEnabled = bEnableIFrames;
 }
 
+void AMasterAI::SetHyperarmorFrames(bool bEnableHFrames)
+{
+	bHFramesEnabled = bEnableHFrames;
+}
+
 //bool AMasterAI::UseItemByTag(FGameplayTag ItemTag)
 //{
 //	return EquipmentComponent->UseItemByTag(ItemTag);
@@ -635,7 +641,9 @@ float AMasterAI::PerformAction(FGameplayTag Action, FGameplayTag State, bool bRa
 	if (Montages.Num() == 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No montages for action: %s"), *Action.ToString());
-		return 0.f;
+		//SetCurrentAction(Action);
+		//SetCurrentState(State);
+		return 0;
 	}
 
 	UAnimMontage* ActionMontage = Montages.IsValidIndex(MontageIndex) ? Montages[MontageIndex] : Montages[0];
@@ -947,7 +955,7 @@ void AMasterAI::SwitchOnEndStates(FGameplayTag State)
 	}
 }
 
-void AMasterAI::SwitchOnActions(FGameplayTag Action)
+void AMasterAI::SwitchOnBeginAction(FGameplayTag Action)
 {
 	if (Action.GetTagName() == "Character.Action.Attack.LightAttack")
 	{
@@ -979,7 +987,8 @@ void AMasterAI::SwitchOnActions(FGameplayTag Action)
 	}
 	else if (Action.GetTagName() == "Character.Action.ExitCombat")
 	{
-
+		UE_LOG(LogTemp, Display, TEXT("Exit combat"));
+		CombatComponent->SetIsCombatEnabled(false);
 	}
 	else if (Action.GetTagName() == "Character.Action.Nothing")
 	{

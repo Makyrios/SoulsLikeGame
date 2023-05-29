@@ -19,17 +19,23 @@ void UHealthBarUserWidget::NativeConstruct()
 
 void UHealthBarUserWidget::InitializeWidget(UStatsComponent* Stats)
 {
+	UE_LOG(LogTemp, Display, TEXT("Widget: %s"), *GetName());
 	if (Stats != nullptr)
 	{
 		Stats->OnCurrentStatValueUpdated.AddDynamic(this, &UHealthBarUserWidget::OnCurrentStateValueUpdate);
 		StatsComponent = Stats;
 		OnCurrentStateValueUpdate(EStats::Health, StatsComponent->GetCurrentStatValue(EStats::Health));
 	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Widget is not initialized. StatsComponent is null"));
+	}
 }
 
 
 void UHealthBarUserWidget::OnCurrentStateValueUpdate(EStats Stat, float Value)
 {
+	UE_LOG(LogTemp, Display, TEXT("%s"), *StatsComponent->GetOwner()->GetActorNameOrLabel());
 	if (Stat == EStats::Health)
 	{
 		if (StatsComponent == nullptr || StatBar == nullptr)

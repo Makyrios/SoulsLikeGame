@@ -3,6 +3,7 @@
 
 #include "EquipmentComponent.h"
 #include "BaseEquippable.h"
+#include "BaseWeapon.h"
 
 // Sets default values for this component's properties
 UEquipmentComponent::UEquipmentComponent()
@@ -64,14 +65,13 @@ void UEquipmentComponent::EquipItem(TSubclassOf<ABaseEquippable> Item)
 
 	for (auto EquippedItem : EquippedItems)
 	{
-		// EquippedItem->GetClass()->IsChildOf(ItemClass->GetSuperClass())
+		// If two objects have same base custom class (i.e. BaseWeapon, MasterAI) then unequip this item
 		if (CheckIfRelatedByParent(EquippedItem->GetClass(), ItemClass))
 		{
 			UnequipItem(EquippedItem);
 			break;
 		}
 	}
-
 
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.Owner = GetOwner();
@@ -94,7 +94,7 @@ void UEquipmentComponent::UnequipItem(ABaseEquippable* ItemToUnequip)
 	}
 }
 
-bool UEquipmentComponent::CheckIfRelatedByParent(UClass* Object1, UClass* Object2) const
+bool UEquipmentComponent::CheckIfRelatedByParent(UClass* Object1, UClass* Object2)
 {
 	if (!Object1 || !Object2)
 	{

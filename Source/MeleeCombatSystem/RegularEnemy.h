@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "MasterAI.h"
+#include "HealthBarUserWidget.h"
 #include "RegularEnemy.generated.h"
 
 /**
