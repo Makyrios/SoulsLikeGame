@@ -29,6 +29,7 @@ protected:
 private:
 	AMasterAI* MasterPawn;
 
+
 	void SetBossHealthVisibility(bool bIsVisible);
 
 	UFUNCTION()

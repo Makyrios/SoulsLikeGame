@@ -9,9 +9,14 @@
 #include "GameplayTagContainer.h"
 #include "CombatComponent.generated.h"
 
+// Event is called after toggling combat. Animation BP uses it to update animation
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCombatEnabled, bool, bIsAttackEnabled);
+// Event is called after setting shield. If weapon has a shield, is uses animations of shield.
+// Otherwise, if weapon can be used like a shield, than use its animation
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnShieldSet, bool, bIsShieldEquipped);
+// Event is called after activating and disabling defending animation. Used in ABP
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBlockingSet, bool, bIsBlockingSet);
+// Event is called after equipping weapon. Character's animations depend of CombatType of a weapon
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponEquipped, ECombatType, CombatType);
 
 
@@ -69,12 +74,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE ABaseWeapon* GetMainWeapon() const { return MainWeapon; }
 	FORCEINLINE void SetMainWeapon(ABaseWeapon* Value) { MainWeapon = Value; }
-	void ChangeMainWeapon(ABaseWeapon* Value);
 
+	/// <summary>
+	/// Used to destroy current actor of main weapon and replace it with an actor of new weapon
+	/// </summary>
+	/// <param name="Value">New weapon</param>
+	void ChangeMainWeapon(ABaseWeapon* Value);
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE bool IsBlocking() const { return bIsBlocking; }
-
 	FORCEINLINE void SetIsBlocking(bool Value) { bIsBlocking = Value; }
 
 	UFUNCTION(BlueprintCallable)
@@ -83,10 +91,6 @@ public:
 	void SetIsCombatEnabled(bool Value);
 
 	void SetBlockingState(bool bEnableBlock);
-
-	/*FORCEINLINE bool IsAttackSaved() const { return bIsAttackSaved; }
-	FORCEINLINE void SetIsAttackSaved(bool Value) { bIsAttackSaved = Value; }*/
-
 
 	FORCEINLINE int GetAttackCount() const { return AttackCount; }
 

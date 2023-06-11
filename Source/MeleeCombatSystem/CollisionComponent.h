@@ -51,7 +51,6 @@ private:
 
 	TArray<AActor*> AlreadyHitActors;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Initialization")
 	UPrimitiveComponent* CollisionMeshComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Initialization")

@@ -41,43 +41,14 @@ void UCombatComponent::ToggleCombat()
 	// Disarm animation
 	if (bIsCombatEnabled)
 	{
-		/*StateControl->SetCurrentAction(ECharacterAction::ExitCombat);
-		UAnimMontage* DisarmAnim = MainWeapon->GetExitCombatAnimMontage();
-		if (DisarmAnim != nullptr)
-		{
-			float AnimDuration = OwnerCharacter->PlayAnimMontage(DisarmAnim);
-			FTimerHandle TimerHandle;
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]() {bIsTogglingCombat = false; }), AnimDuration, false);
-		}*/
-
 		OwnerStateControl->PerformAction(FGameplayTag::RequestGameplayTag(FName("Character.Action.ExitCombat")),
 			FGameplayTag::RequestGameplayTag(FName("Character.State.TogglingCombat")));
-
-		/*if (AnimDuration == 0)
-		{
-			MainWeapon->ToggleCombat(false);
-		}*/
 	}
 	// Draw animation
 	else
 	{
-		/*StateControl->SetCurrentAction(ECharacterAction::EnterCombat);
-		UAnimMontage* DrawAnim = MainWeapon->GetEnterCombatAnimMontage();
-		if (DrawAnim != nullptr)
-		{
-			float AnimDuration = OwnerCharacter->PlayAnimMontage(DrawAnim);
-			FTimerHandle TimerHandle;
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]() {bIsTogglingCombat = false; }), AnimDuration, false);
-		}*/
-
 		OwnerStateControl->PerformAction(FGameplayTag::RequestGameplayTag(FName("Character.Action.EnterCombat")),
 			FGameplayTag::RequestGameplayTag(FName("Character.State.TogglingCombat")));
-
-
-		/*if (AnimDuration == 0)
-		{
-			MainWeapon->ToggleCombat(true);
-		}*/
 	}
 }
 
@@ -96,6 +67,7 @@ float UCombatComponent::PerformAttack(FGameplayTag AttackType, int AttackIndex, 
 	}
 
 	// Save attack
+	// If clicking attack button while Attacking state, then save this attack and it's type
 	if (OwnerStateControl->GetCurrentState() == FGameplayTag::RequestGameplayTag(FName("Character.State.Attacking")))
 	{
 		UE_LOG(LogTemp, Display, TEXT("Save attack"));
@@ -106,6 +78,7 @@ float UCombatComponent::PerformAttack(FGameplayTag AttackType, int AttackIndex, 
 	
 	TArray<UAnimMontage*> AttackMontages = OwnerStateControl->GetMontageByTag(AttackType);
 	int FinalIndex = 0;
+	// Get either random animation of the animations array, or attack at specified index, or first attack of the array
 	if (AttackMontages.Num() > 0)
 	{
 		if (bRandomIndex)
@@ -126,6 +99,7 @@ float UCombatComponent::PerformAttack(FGameplayTag AttackType, int AttackIndex, 
 	}
 
 	AttackCount += 1;
+	// Used to make a loop of attacks of the same type
 	if (AttackCount >= AttackMontages.Num())
 	{
 		AttackCount = 0;
@@ -142,8 +116,6 @@ void UCombatComponent::PerformNextAttack(FGameplayTag AttackType)
 	{
 		OwnerStateControl->ResetState();
 	}
-
-	//if (CanPerformAnimation)
 
 	if (bIsAttackSaved)
 	{
@@ -168,23 +140,6 @@ void UCombatComponent::ResetCombat()
 	}
 }
 
-//float UCombatComponent::PerformAction(FGameplayTag Action, FGameplayTag State, int MontageIndex)
-//{
-//	if (OwnerStateControl == nullptr)
-//	{
-//		return -1;
-//	}
-//
-//	UAnimMontage* ActionMontage = OwnerStateControl->GetMontageByTag(Action)[MontageIndex];
-//	if (ActionMontage == nullptr)
-//	{
-//		return -1;
-//	}
-//	OwnerStateControl->SetCurrentAction(Action);
-//	OwnerStateControl->SetCurrentState(State);
-//	return OwnerCharacter->PlayAnimMontage(ActionMontage);
-//}
-
 
 // Called every frame
 void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -208,7 +163,6 @@ void UCombatComponent::SetIsCombatEnabled(bool Value)
 {
 	bIsCombatEnabled = Value;
 	OnCombatEnabled.Broadcast(Value);
-	//MainWeapon->UpdateWeaponAttachedToHand(Value);
 }
 
 void UCombatComponent::SetBlockingState(bool bEnableBlock)

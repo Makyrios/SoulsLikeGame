@@ -86,8 +86,6 @@ void AMasterAI::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-
-	//OnTakePointDamage.AddDynamic(this, &AMasterAI::TakePointDamage);
 	OnTakeAnyDamage.AddDynamic(this, &AMasterAI::TakeAnyDamage);
 	if (StateManager != nullptr)
 	{
@@ -164,10 +162,6 @@ bool AMasterAI::CanReceiveHitReaction() const
 	return false;
 }
 
-//bool AMasterAI::HasMatchingGameplayTag(FGameplayTag TagToCheck)
-//{
-//	return OwnedTags.HasTagExact(TagToCheck);
-//}
 
 TArray<UAnimMontage*> AMasterAI::GetMontageByTag(FGameplayTag Action) const
 {
@@ -336,22 +330,13 @@ void AMasterAI::ApplyHitReaction(EDamageType DamageType)
 
 void AMasterAI::PerformHitStun()
 {
-	//StateManager->SetCurrentState(FGameplayTag::RequestGameplayTag("Character.State.Disabled"));
 	if (bHitFront)
 	{
-		/*if (HitReactionFrontMontage != nullptr)
-		{
-			PlayAnimMontage(HitReactionFrontMontage);
-		}*/
 		PerformAction(FGameplayTag::RequestGameplayTag("Character.Action.FrontHitReaction"),
 			FGameplayTag::RequestGameplayTag("Character.State.Disabled"), true);
 	}
 	else
 	{
-		/*if (HitReactionBackMontage != nullptr)
-		{
-			PlayAnimMontage(HitReactionBackMontage);
-		}*/
 		PerformAction(FGameplayTag::RequestGameplayTag("Character.Action.BackHitReaction"),
 			FGameplayTag::RequestGameplayTag("Character.State.Disabled"), true);
 	}
@@ -455,15 +440,6 @@ bool AMasterAI::CanPerformAttack() const
 	return !StateManager->IsCurrentStateEqualToAny(States) && !GetCharacterMovement()->IsFalling();
 }
 
-//void AMasterAI::PerformAction(UAnimMontage* ActionMontage, FGameplayTag Action, FGameplayTag State)
-//{
-//	if (ActionMontage != nullptr)
-//	{
-//		SetCurrentAction(Action);
-//		SetCurrentState(State);
-//		PlayAnimMontage(ActionMontage);
-//	}
-//}
 
 void AMasterAI::ContinueAttack(FGameplayTag AttackType)
 {
@@ -619,15 +595,6 @@ void AMasterAI::SetHyperarmorFrames(bool bEnableHFrames)
 	bHFramesEnabled = bEnableHFrames;
 }
 
-//bool AMasterAI::UseItemByTag(FGameplayTag ItemTag)
-//{
-//	return EquipmentComponent->UseItemByTag(ItemTag);
-//}
-//
-//ABaseEquippable* AMasterAI::GetItemByTag(FGameplayTag ItemTag)
-//{
-//	return EquipmentComponent->GetItemByTag(ItemTag);
-//}
 
 void AMasterAI::UpdateHealthPotionAmount(int Amount)
 {
@@ -641,8 +608,6 @@ float AMasterAI::PerformAction(FGameplayTag Action, FGameplayTag State, bool bRa
 	if (Montages.Num() == 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No montages for action: %s"), *Action.ToString());
-		//SetCurrentAction(Action);
-		//SetCurrentState(State);
 		return 0;
 	}
 

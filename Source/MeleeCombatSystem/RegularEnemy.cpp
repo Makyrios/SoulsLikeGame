@@ -15,7 +15,6 @@ ARegularEnemy::ARegularEnemy()
 	HealthBarWidgetComponent->SetupAttachment(RootComponent);
 	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 
-	//HealthBarWidgetComponent->SetWidgetClass(Widget);
 }
 
 void ARegularEnemy::OnTargeted(bool bIsTargeted)

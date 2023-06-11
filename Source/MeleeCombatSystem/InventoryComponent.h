@@ -32,6 +32,7 @@ public:
 
 	void InitializeWeapons();
 
+
 	int CurrentWeaponSlot = 0;
 
 public:

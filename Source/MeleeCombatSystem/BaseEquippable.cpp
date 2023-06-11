@@ -59,7 +59,6 @@ void ABaseEquippable::AttachActor(FName SocketName)
 	if (Character != nullptr)
 	{
 		this->AttachToComponent(Character->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, SocketName);
-		//this->AttachToComponent(Character->GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, SocketName);
 	}
 }
 

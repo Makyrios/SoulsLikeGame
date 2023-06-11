@@ -149,8 +149,6 @@ void ABaseWeapon::OnHitEvent(FHitResult Hit)
 	FVector InShotDirection = -GetOwner()->GetActorForwardVector();
 	InShotDirection.Normalize();
 
-	/*FPointDamageEvent PointDamageEvent(GetDamage(), Hit, InShotDirection, DamageTypeClass);
-	Hit.GetActor()->TakeDamage(GetDamage(), PointDamageEvent, GetInstigatorController(), this);*/
 	UGameplayStatics::ApplyDamage(Hit.GetActor(), GetDamage(), GetInstigatorController(), this, DamageTypeClass);
 }
 
@@ -173,7 +171,6 @@ void ABaseWeapon::OnEquipped()
 		AttachActor(GetAttachSocketName());
 	}
 	CombatComponent->ChangeMainWeapon(this);
-	//UpdateCombatType(CombatType_);
 }
 
 

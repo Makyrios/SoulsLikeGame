@@ -29,12 +29,6 @@ public:
 	virtual void OnEquipped() override;
 	virtual void OnUnequipped() override;
 
-	/*UFUNCTION(BlueprintImplementableEvent)
-	void UpdateCombatType(ECombatType Type);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void UpdateWeaponAttachedToHand(bool IsCombatEnabled);*/
-
 	void SimulateWeaponPhysics();
 
 	UFUNCTION(BlueprintCallable)
@@ -69,9 +63,7 @@ public:
 	FORCEINLINE UAnimMontage* GetEnterCombatAnimMontage() const { return EnterCombatAnimMontage; }
 	FORCEINLINE UAnimMontage* GetExitCombatAnimMontage() const { return ExitCombatAnimMontage; }
 
-	//UFUNCTION(BlueprintCallable)
 	FORCEINLINE ECombatType GetCombatType() const { return CombatType_; }
-	//UFUNCTION(BlueprintCallable)
 	FORCEINLINE void SetCombatType(ECombatType Type) { CombatType_ = Type; }
 
 	float GetActionStatCost() const;

@@ -21,7 +21,6 @@ class MELEECOMBATSYSTEM_API ICombat
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void ContinueAttack(FGameplayTag AttackType) = 0;
@@ -43,12 +42,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void SetHyperarmorFrames(bool bEnableHFrames) = 0;
-
-	/*UFUNCTION(BlueprintCallable)
-	virtual bool UseItemByTag(FGameplayTag ItemTag) = 0;
-
-	UFUNCTION(BlueprintCallable)
-	virtual ABaseEquippable* GetItemByTag(FGameplayTag ItemTag) = 0;*/
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UpdateHealthPotionAmount(int Amount) = 0;

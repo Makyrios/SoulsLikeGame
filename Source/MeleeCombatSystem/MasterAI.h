@@ -55,8 +55,6 @@ public:
 	virtual bool CanReceiveDamage() const override;
 	virtual void SetInvincibleFrames(bool bEnableIFrames) override;
 	virtual void SetHyperarmorFrames(bool bEnableHFrames) override;
-	/*virtual bool UseItemByTag(FGameplayTag ItemTag) override;
-	virtual ABaseEquippable* GetItemByTag(FGameplayTag ItemTag) override;*/
 	virtual void UpdateHealthPotionAmount(int Amount) override;
 
 	// Inherited via IStateControl
@@ -80,9 +78,7 @@ public:
 	virtual void OnTargeted(bool bIsTargeted) override;
 
 
-
 	bool CanPerformAttack() const;
-
 
 	void EnableRagdoll();
 
@@ -152,9 +148,6 @@ public:
 
 	FORCEINLINE UBehaviorTree* GetBehaviorTree() const { return BehaviorTree; }
 
-	/*FORCEINLINE FGameplayTagContainer GetOwnedTags() const { return OwnedTags; }
-
-	bool HasMatchingGameplayTag(FGameplayTag TagToCheck);*/
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
@@ -171,12 +164,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Initialization")
 	UBehaviorTree* BehaviorTree;
 
-
-	/*UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Tags)
-	FGameplayTagContainer OwnedTags;*/
-
 	FOnTimelineFloat AttackUpdateFunction;
-
 
 	virtual void SwitchOnBeginStates(FGameplayTag State);
 	virtual void SwitchOnEndStates(FGameplayTag State);

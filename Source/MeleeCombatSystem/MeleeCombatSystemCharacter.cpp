@@ -74,7 +74,6 @@ AMeleeCombatSystemCharacter::AMeleeCombatSystemCharacter()
 	AIPerceptionSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AI Perception Source");
 	AttackTimeline = CreateDefaultSubobject<UTimelineComponent>("Attack Timeline Component");
 
-	//AIPerceptionSourceComponent->RegisterForSense(UAISense_Sight::StaticClass());
 
 	// EVENTS
 
@@ -84,7 +83,8 @@ AMeleeCombatSystemCharacter::AMeleeCombatSystemCharacter()
 	{
 		StateManager->OnStateBeginEvent.AddUObject(this, &AMeleeCombatSystemCharacter::SwitchOnBeginStates);
 		StateManager->OnStateEndEvent.AddUObject(this, &AMeleeCombatSystemCharacter::SwitchOnEndStates);
-		//StateManager->OnActionBeginEvent.AddUObject(this, &AMeleeCombatSystemCharacter::SwitchOnActions);
+		//StateManager->OnActionBeginEvent.AddUObject(this, &AMeleeCombatSystemCharacter::SwitchOnBeginActions);
+		//StateManager->OnActionEndEvent.AddUObject(this, &AMeleeCombatSystemCharacter::SwitchOnEndActions);
 	}
 	if (StatsComponent != nullptr)
 	{
@@ -352,36 +352,6 @@ void AMeleeCombatSystemCharacter::SetupPlayerInputComponent(class UInputComponen
 
 }
 
-//void AMeleeCombatSystemCharacter::TakePointDamage(AActor* DamagedActor,
-//	float Damage, AController* InstigatedBy, FVector HitLocation,
-//	UPrimitiveComponent* FHitComponent, FName BoneName,
-//	FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser)
-//{
-//	if (StatsComponent != nullptr)
-//	{
-//		StatsComponent->TakeDamage(Damage);
-//	}
-//	
-//	if (GuardianImpactSoundCue != nullptr)
-//	{
-//		UGameplayStatics::PlaySoundAtLocation(this, GuardianImpactSoundCue, HitLocation);
-//	}
-//	if (GuardianImpactParticles != nullptr)
-//	{
-//		UGameplayStatics::SpawnEmitterAtLocation(this, GuardianImpactParticles, HitLocation);
-//	}
-//
-//	if (StateManager != nullptr)
-//	{
-//		StateManager->SetCurrentState(FGameplayTag::RequestGameplayTag("Character.State.Disabled"));
-//	}
-//
-//	if (HitReactionFrontMontage != nullptr)
-//	{
-//		PlayAnimMontage(HitReactionFrontMontage);
-//	}
-//
-//}
 
 void AMeleeCombatSystemCharacter::TakeAnyDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
@@ -396,6 +366,7 @@ void AMeleeCombatSystemCharacter::TakeAnyDamage(AActor* DamagedActor, float Dama
 		AttackType = AttackDamageType->GetDamageType();
 	}
 
+	// Change bool if hit was from behind
 	FindIfBehind(DamageCauser);
 
 	if (StatsComponent != nullptr)
@@ -505,22 +476,13 @@ bool AMeleeCombatSystemCharacter::WasHitBlocked() const
 
 void AMeleeCombatSystemCharacter::PerformHitStun()
 {
-	//StateManager->SetCurrentState(FGameplayTag::RequestGameplayTag("Character.State.Disabled"));
 	if (bHitFront)
 	{
-		/*if (HitReactionFrontMontage != nullptr)
-		{
-			PlayAnimMontage(HitReactionFrontMontage);
-		}*/
 		PerformAction(FGameplayTag::RequestGameplayTag("Character.Action.FrontHitReaction"),
 			FGameplayTag::RequestGameplayTag("Character.State.Disabled"), true);
 	}
 	else
 	{
-		/*if (HitReactionBackMontage != nullptr)
-		{
-			PlayAnimMontage(HitReactionBackMontage);
-		}*/
 		PerformAction(FGameplayTag::RequestGameplayTag("Character.Action.BackHitReaction"),
 			FGameplayTag::RequestGameplayTag("Character.State.Disabled"), true);
 	}
@@ -856,15 +818,6 @@ void AMeleeCombatSystemCharacter::SetHyperarmorFrames(bool bEnableHFrames)
 	bHFramesEnabled = bEnableHFrames;
 }
 
-//bool AMeleeCombatSystemCharacter::UseItemByTag(FGameplayTag ItemTag)
-//{
-//	return EquipmentComponent->UseItemByTag(ItemTag);
-//}
-//
-//ABaseEquippable* AMeleeCombatSystemCharacter::GetItemByTag(FGameplayTag ItemTag)
-//{
-//	return EquipmentComponent->GetItemByTag(ItemTag);
-//}
 
 void AMeleeCombatSystemCharacter::UpdateHealthPotionAmount(int Amount)
 {
@@ -1010,13 +963,8 @@ void AMeleeCombatSystemCharacter::LightAttack()
 {
 	if (CombatComponent == nullptr) return;
 
-	// Falling attack
 	if (GetCharacterMovement()->IsFalling())
 	{
-		/*if (StatsComponent != nullptr && StateManager->GetCurrentState() != FGameplayTag::RequestGameplayTag("Character.State.Attacking"))
-		{
-			StatsComponent->ModifyCurrentStatValue(EStats::Stamina, -CombatComponent->GetMainWeapon()->GetActionStatCost());
-		}*/
 		CombatComponent->PerformAttack
 		(
 			FGameplayTag::RequestGameplayTag(FName("Character.Action.Attack.FallingAttack")),
@@ -1026,10 +974,6 @@ void AMeleeCombatSystemCharacter::LightAttack()
 
 	if (CanPerformAttack())
 	{
-		/*if (StatsComponent != nullptr && StateManager->GetCurrentState() != FGameplayTag::RequestGameplayTag("Character.State.Attacking"))
-		{
-			StatsComponent->ModifyCurrentStatValue(EStats::Stamina, -CombatComponent->GetMainWeapon()->GetActionStatCost());
-		}*/
 		CombatComponent->PerformAttack
 		(
 			FGameplayTag::RequestGameplayTag(FName("Character.Action.Attack.LightAttack")),
@@ -1052,10 +996,6 @@ void AMeleeCombatSystemCharacter::HeavyAndSprintAttack()
 				FGameplayTag::RequestGameplayTag(FName("Character.Action.Attack.SprintAttack")),
 				CombatComponent->GetAttackCount(), false
 			);
-			/*if (StatsComponent != nullptr)
-			{
-				StatsComponent->ModifyCurrentStatValue(EStats::Stamina, -CombatComponent->GetMainWeapon()->GetActionStatCost());
-			}*/
 		}
 		else
 		{
@@ -1064,10 +1004,6 @@ void AMeleeCombatSystemCharacter::HeavyAndSprintAttack()
 				FGameplayTag::RequestGameplayTag(FName("Character.Action.Attack.StrongAttack")),
 				CombatComponent->GetAttackCount(), false
 			);
-			/*if (StatsComponent != nullptr)
-			{
-				StatsComponent->ModifyCurrentStatValue(EStats::Stamina, -CombatComponent->GetMainWeapon()->GetActionStatCost());
-			}*/
 		}
 	}
 
@@ -1083,10 +1019,6 @@ void AMeleeCombatSystemCharacter::ChargedAttack()
 			FGameplayTag::RequestGameplayTag(FName("Character.Action.Attack.ChargedAttack")),
 			CombatComponent->GetAttackCount(), false
 		);
-		/*if (StatsComponent != nullptr)
-		{
-			StatsComponent->ModifyCurrentStatValue(EStats::Stamina, -CombatComponent->GetMainWeapon()->GetActionStatCost());
-		}*/
 	}
 }
 
@@ -1097,10 +1029,6 @@ void AMeleeCombatSystemCharacter::Dodge()
 		PerformAction(FGameplayTag::RequestGameplayTag(FName("Character.Action.Dodge")),
 			FGameplayTag::RequestGameplayTag(FName("Character.State.Dodging")));
 
-		/*if (StatsComponent != nullptr)
-		{
-			StatsComponent->ModifyCurrentStatValue(EStats::Stamina, -10);
-		}*/
 	}
 }
 

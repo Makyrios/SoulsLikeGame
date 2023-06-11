@@ -22,7 +22,7 @@ void ABaseDualWeapon::OnEquipped()
 
 	// Attach main weapon
 	Super::OnEquipped();
-	//UpdateCombatType(CombatType_);
+
 }
 
 void ABaseDualWeapon::OnUnequipped()

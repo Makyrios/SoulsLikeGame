@@ -115,8 +115,6 @@ public:
 	virtual bool CanPerformAnimation() const override;
 	virtual void SetInvincibleFrames(bool bEnableIFrames) override;
 	virtual void SetHyperarmorFrames(bool bEnableHFrames) override;
-	/*virtual bool UseItemByTag(FGameplayTag ItemTag) override;
-	virtual ABaseEquippable* GetItemByTag(FGameplayTag ItemTag) override;*/
 	virtual void UpdateHealthPotionAmount(int Amount) override;
 
 
