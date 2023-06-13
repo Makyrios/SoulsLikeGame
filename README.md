@@ -39,3 +39,6 @@ List of free assets, that were used in this game:
 | Paragon Rampage                             | [Link](https://www.unrealengine.com/marketplace/en-US/product/paragon-rampage)                             |
 | Realistic Starter VFX Pack Vol              | [Link](https://www.unrealengine.com/marketplace/en-US/product/realistic-starter-vfx-pack-vol)              |
 
+
+Link to the [archive](https://drive.google.com/file/d/1HvhsBhsMXOBzRLjPGk4euB_x5u9kNv8m/view?usp=drive_link), which contains the game with all required contents except of build and editor files
+
