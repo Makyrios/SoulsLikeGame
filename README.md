@@ -2,7 +2,7 @@
 
 ##### Developed with Unreal Engine 5.1.1
 
-##### Mostly based on [Udemy course](https://ua.udemy.com/course/unreal-engine-5-soulslike-combat/ "Udemy course")
+##### Mostly based on [Udemy course](https://www.udemy.com/course/unreal-engine-5-soulslike-combat/ "Udemy course")
 
 ---
 Almost all of the blueprint logic was converted to C++, except AI tasks and some other blueprints, which take too much time to rewrite them.
