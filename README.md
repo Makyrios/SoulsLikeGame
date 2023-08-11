@@ -7,7 +7,7 @@
 ---
 Almost all of the blueprint logic was converted to C++, except AI tasks and some other blueprints, which take too much time to rewrite them.
 
-Game was made only for the learning purposes and is not finished. In current state it is a single level (map from InfinityBladeIceLands with a few changes), which contains 2 types of enemies and a boss at the end. 
+Game was made only for the learning purposes and is not finished. In current state it is a single level (map from InfinityBladeIceLands with a few changes), which contains 2 types of enemies (one with different weapon variations) and a boss at the end. 
 
 Implemented all functionality from the course: different attack types and simple attack combos, rolling with invincibility frames, stats system, blocking, targeting enemies, UI, AI for enemies etc. Additionally added the simplest inventory system to change weapons for a player.
 
